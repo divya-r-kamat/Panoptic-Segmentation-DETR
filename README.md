@@ -30,3 +30,20 @@ DETR architecture is built upon a transformer, it incorporates almost no geometr
 - They are randomly initialized embeddings that are learnt and refined through the course of training and then fixed for evaliation
 - DETR uses 100 object embeddings and this defines the upper bound on the number of objects that this model can detect
 - No geometric priors are incorporated in the object queries, instead the model learns it directly from the data
+
+
+## Panoptic Segmentation. 
+Its is fusion of instance segmentation which aims at predicting a mask for each distinct instant of a foreground object and semantic segmentation which aims at predicting a class label for each pixel in the background, the resulting task requires that each pixel belongs to exactly one segment Through panoptic segmentation we aim at understanding whether DETR's object embeddings can be used for the downstream tasks
+
+- Fist task is to train regular DETR to predict boxes around things (foreground) and stuff (background objects) in a uniform manner
+- Once the detection model is trained we freeze the weights, train a mask head for 25 epochs
+
+
+## Panoptic architecture overview:
+- We first feed the image to the CNN and set aside the activations from intermediate layers - Res5, Res4, Res3, Res2.
+- These are then passed to transformer encoder, after the encoder we also set aside the encoder version of the image and then proceed to the decoder. 
+- we endup with object embedding for the foreground objects and for each segment of the background objects each
+- Next, a multi-head attention layer is used that returns the attention scores over the encoded image for each object embedding. 
+- we proceed to upsample and clean these masks, using convolutional network that uses the imtermediate activations from the backbone.
+- As a result we get high resolution maps where each pixel contains a binary logit of belonging to the mask.
+- Finally, the masks are merged by assigning each pixel to the mask with the highest logit using a simple pixel wise argmax
