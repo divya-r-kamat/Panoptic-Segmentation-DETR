@@ -3,7 +3,7 @@
 The Objective implements Object detection and Panoptic Segmentation using DETR on custom dataset
 
 
-## Background
+## Object detection and Older approach
 The task of object detection consists in finding and localizing the objects visible in a given input image. A common way of characterizing these objects is through a unordered set of tight bounding boxes associated with a category label. 
 
 For the past decades the main approach to object detection was to reduce it to the well-studied problem of image classification by classifying all the bounding boxes. 
