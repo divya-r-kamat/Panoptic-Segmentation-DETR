@@ -1,4 +1,4 @@
-# Panoptic-Segmentation - DETR
+# Panoptic Segmentation - DETR
 
 The Objective implements Object detection and Panoptic Segmentation using DETR on custom dataset
 
