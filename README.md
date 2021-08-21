@@ -16,6 +16,9 @@ DETR architecture is built upon a transformer, propose a direct set prediction a
 
 ### Architecture 
 
+![image](https://user-images.githubusercontent.com/42609155/130305113-ec4455cc-f8d9-4948-8893-8ae9412390c6.png)
+
+
 1. We first feed the image to a CNN (a pre-trained convolutional backbone) to get image features. Let’s assume we also add a batch dimension. This means that the input to the backbone is a tensor of shape (batch_size, 3, height, width) , assuming the image has 3 color channels (RGB). The CNN backbone outputs a new lower-resolution feature map, typically of shape (batch_size, 2048, height/32, width/32)
 2.  This is then projected to match the hidden dimension of the Transformer of DETR, which is 256 by default, using a nn.Conv2D layer. So now, we have a tensor of shape (batch_size, 256, height/32, width/32).
 3. Next, the feature map is flattened and transposed to obtain a tensor of shape (batch_size, seq_len, d_model) = (batch_size, width/32*height/32, 256)
